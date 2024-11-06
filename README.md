@@ -1,0 +1,2 @@
+# rcli 
+learn rust 
