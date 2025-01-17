@@ -1,21 +1,22 @@
+use std::fs;
 use anyhow::Result;
 use csv::Reader;
-use serde::{Deserialize, Serialize};
-use std::fs;
+// use serde::{Deserialize, Serialize};
+use serde_json::Value;
 
 use crate::opts::OutputFormat;
 
-#[derive(Debug, Deserialize, Serialize)]
-#[serde(rename_all = "PascalCase")]
-struct Player {
-    name: String,
-    position: String,
-    #[serde(rename = "DOB")]
-    dob: String,
-    nationality: String,
-    #[serde(rename = "Kit Number")]
-    kit: u8,
-}
+// #[derive(Debug, Deserialize, Serialize)]
+// #[serde(rename_all = "PascalCase")]
+// struct Player {
+//     name: String,
+//     position: String,
+//     #[serde(rename = "DOB")]
+//     dob: String,
+//     nationality: String,
+//     #[serde(rename = "Kit Number")]
+//     kit: u8,
+// }
 
 pub fn process_csv(input: &str, output: String, format: OutputFormat) -> Result<()> {
     let mut reader = Reader::from_path(input)?;

@@ -1,5 +1,7 @@
+use core::fmt;
+use std::{path::Path, str::FromStr};
+
 use clap::Parser;
-use std::{fmt, path::Path, str::FromStr};
 
 #[derive(Debug, Parser)]
 #[command(name = "rcli", version, author, about, long_about = None)]
@@ -12,6 +14,7 @@ pub struct Opts {
 pub enum SubCommand {
     #[command(name = "csv", about = "Show CSV, or convert CSV to other formats")]
     Csv(CsvOpts),
+
     #[command(name = "genpass", about = "Generate a random password")]
     GenPass(GenPassOpts),
 }
@@ -27,7 +30,7 @@ pub struct CsvOpts {
     #[arg(short, long, value_parser = verify_input_file)]
     pub input: String,
 
-    #[arg(short, long)] // "output.json".into()
+    #[arg(short, long)]
     pub output: Option<String>,
 
     #[arg(long, value_parser = parse_format, default_value = "json")]
@@ -86,7 +89,7 @@ impl FromStr for OutputFormat {
         match s {
             "json" => Ok(OutputFormat::Json),
             "yaml" => Ok(OutputFormat::Yaml),
-            _ => Err(anyhow::anyhow!("Invalid format")),
+            _ => Err(anyhow::anyhow!("Invalid output format")),
         }
     }
 }
